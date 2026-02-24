@@ -295,10 +295,10 @@ jspm_packages/
 .vscode-test
 
 # Uploads (user uploaded files)
-uploads/*
+backend/uploads/*
 
 # ML specific
 # If you have large datasets or models, uncomment below
 ml-service/dataset/
 Image/
-# model/*.keras
+# model/*.keras/
