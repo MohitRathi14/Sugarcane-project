@@ -4,10 +4,10 @@ from tensorflow.keras.preprocessing import image
 import json
 
 # Load model
-model = tf.keras.models.load_model("model/sugarcane_model.h5")
+model = tf.keras.models.load_model("ml-service/model/sugarcane_model.keras")
 
 # Load class names
-with open("model/class_names.json", "r") as f:
+with open("ml-service/model/class_names.json", "r") as f:
     class_names = json.load(f)
 def predict_image(img_path):
     # Load image
@@ -34,5 +34,5 @@ def predict_image(img_path):
         "confidence": round(confidence * 100, 2)
     }
 if __name__ == "__main__":
-    result = predict_image("test.jpg")
+    result = predict_image("Image/Unhealthy_100.jpg")
     print(result)
