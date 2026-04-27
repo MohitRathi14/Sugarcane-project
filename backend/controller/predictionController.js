@@ -1,5 +1,6 @@
 import { uploadToCloudinary } from "../services/cloudinaryService.js";
 import { sendToMLService } from "../services/mlService.js";
+import { getTreatmentInfo } from "../data/diseaseTreatments.js";
 import fs from "fs";
 
 export const predictImage = async (req, res) => {
@@ -9,11 +10,16 @@ export const predictImage = async (req, res) => {
 
     const prediction = await sendToMLService(imageUrl);
 
+    // Get treatment information based on the predicted disease
+    const diseaseName = prediction.disease || prediction.status;
+    const treatmentInfo = getTreatmentInfo(diseaseName);
+
     fs.unlinkSync(req.file.path); // delete local temp file
 
     res.status(200).json({
       imageUrl,
-      ...prediction
+      ...prediction,
+      treatment: treatmentInfo
     });
 
   } catch (error) {
